@@ -536,6 +536,591 @@ public final class Chat {
 
   }
 
+  public interface PoolRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:chat.PoolRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string client_name = 1;</code>
+     */
+    java.lang.String getClientName();
+    /**
+     * <code>string client_name = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getClientNameBytes();
+
+    /**
+     * <code>int32 pool_size = 2;</code>
+     */
+    int getPoolSize();
+  }
+  /**
+   * Protobuf type {@code chat.PoolRequest}
+   */
+  public  static final class PoolRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:chat.PoolRequest)
+      PoolRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use PoolRequest.newBuilder() to construct.
+    private PoolRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private PoolRequest() {
+      clientName_ = "";
+      poolSize_ = 0;
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private PoolRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              clientName_ = s;
+              break;
+            }
+            case 16: {
+
+              poolSize_ = input.readInt32();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return pdytr.example.grpc.Chat.internal_static_chat_PoolRequest_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return pdytr.example.grpc.Chat.internal_static_chat_PoolRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              pdytr.example.grpc.Chat.PoolRequest.class, pdytr.example.grpc.Chat.PoolRequest.Builder.class);
+    }
+
+    public static final int CLIENT_NAME_FIELD_NUMBER = 1;
+    private volatile java.lang.Object clientName_;
+    /**
+     * <code>string client_name = 1;</code>
+     */
+    public java.lang.String getClientName() {
+      java.lang.Object ref = clientName_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        clientName_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string client_name = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getClientNameBytes() {
+      java.lang.Object ref = clientName_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        clientName_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int POOL_SIZE_FIELD_NUMBER = 2;
+    private int poolSize_;
+    /**
+     * <code>int32 pool_size = 2;</code>
+     */
+    public int getPoolSize() {
+      return poolSize_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getClientNameBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, clientName_);
+      }
+      if (poolSize_ != 0) {
+        output.writeInt32(2, poolSize_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getClientNameBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, clientName_);
+      }
+      if (poolSize_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, poolSize_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof pdytr.example.grpc.Chat.PoolRequest)) {
+        return super.equals(obj);
+      }
+      pdytr.example.grpc.Chat.PoolRequest other = (pdytr.example.grpc.Chat.PoolRequest) obj;
+
+      boolean result = true;
+      result = result && getClientName()
+          .equals(other.getClientName());
+      result = result && (getPoolSize()
+          == other.getPoolSize());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + CLIENT_NAME_FIELD_NUMBER;
+      hash = (53 * hash) + getClientName().hashCode();
+      hash = (37 * hash) + POOL_SIZE_FIELD_NUMBER;
+      hash = (53 * hash) + getPoolSize();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static pdytr.example.grpc.Chat.PoolRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static pdytr.example.grpc.Chat.PoolRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static pdytr.example.grpc.Chat.PoolRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static pdytr.example.grpc.Chat.PoolRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static pdytr.example.grpc.Chat.PoolRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static pdytr.example.grpc.Chat.PoolRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static pdytr.example.grpc.Chat.PoolRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static pdytr.example.grpc.Chat.PoolRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static pdytr.example.grpc.Chat.PoolRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static pdytr.example.grpc.Chat.PoolRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static pdytr.example.grpc.Chat.PoolRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static pdytr.example.grpc.Chat.PoolRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(pdytr.example.grpc.Chat.PoolRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code chat.PoolRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:chat.PoolRequest)
+        pdytr.example.grpc.Chat.PoolRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return pdytr.example.grpc.Chat.internal_static_chat_PoolRequest_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return pdytr.example.grpc.Chat.internal_static_chat_PoolRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                pdytr.example.grpc.Chat.PoolRequest.class, pdytr.example.grpc.Chat.PoolRequest.Builder.class);
+      }
+
+      // Construct using pdytr.example.grpc.Chat.PoolRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        clientName_ = "";
+
+        poolSize_ = 0;
+
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return pdytr.example.grpc.Chat.internal_static_chat_PoolRequest_descriptor;
+      }
+
+      public pdytr.example.grpc.Chat.PoolRequest getDefaultInstanceForType() {
+        return pdytr.example.grpc.Chat.PoolRequest.getDefaultInstance();
+      }
+
+      public pdytr.example.grpc.Chat.PoolRequest build() {
+        pdytr.example.grpc.Chat.PoolRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public pdytr.example.grpc.Chat.PoolRequest buildPartial() {
+        pdytr.example.grpc.Chat.PoolRequest result = new pdytr.example.grpc.Chat.PoolRequest(this);
+        result.clientName_ = clientName_;
+        result.poolSize_ = poolSize_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof pdytr.example.grpc.Chat.PoolRequest) {
+          return mergeFrom((pdytr.example.grpc.Chat.PoolRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(pdytr.example.grpc.Chat.PoolRequest other) {
+        if (other == pdytr.example.grpc.Chat.PoolRequest.getDefaultInstance()) return this;
+        if (!other.getClientName().isEmpty()) {
+          clientName_ = other.clientName_;
+          onChanged();
+        }
+        if (other.getPoolSize() != 0) {
+          setPoolSize(other.getPoolSize());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        pdytr.example.grpc.Chat.PoolRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (pdytr.example.grpc.Chat.PoolRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object clientName_ = "";
+      /**
+       * <code>string client_name = 1;</code>
+       */
+      public java.lang.String getClientName() {
+        java.lang.Object ref = clientName_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          clientName_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string client_name = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getClientNameBytes() {
+        java.lang.Object ref = clientName_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          clientName_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string client_name = 1;</code>
+       */
+      public Builder setClientName(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        clientName_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string client_name = 1;</code>
+       */
+      public Builder clearClientName() {
+        
+        clientName_ = getDefaultInstance().getClientName();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string client_name = 1;</code>
+       */
+      public Builder setClientNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        clientName_ = value;
+        onChanged();
+        return this;
+      }
+
+      private int poolSize_ ;
+      /**
+       * <code>int32 pool_size = 2;</code>
+       */
+      public int getPoolSize() {
+        return poolSize_;
+      }
+      /**
+       * <code>int32 pool_size = 2;</code>
+       */
+      public Builder setPoolSize(int value) {
+        
+        poolSize_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 pool_size = 2;</code>
+       */
+      public Builder clearPoolSize() {
+        
+        poolSize_ = 0;
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:chat.PoolRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:chat.PoolRequest)
+    private static final pdytr.example.grpc.Chat.PoolRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new pdytr.example.grpc.Chat.PoolRequest();
+    }
+
+    public static pdytr.example.grpc.Chat.PoolRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<PoolRequest>
+        PARSER = new com.google.protobuf.AbstractParser<PoolRequest>() {
+      public PoolRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new PoolRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<PoolRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<PoolRequest> getParserForType() {
+      return PARSER;
+    }
+
+    public pdytr.example.grpc.Chat.PoolRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface ServerResponseOrBuilder extends
       // @@protoc_insertion_point(interface_extends:chat.ServerResponse)
       com.google.protobuf.MessageOrBuilder {
@@ -3205,6 +3790,11 @@ public final class Chat {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_chat_ClientRequest_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_chat_PoolRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_chat_PoolRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_chat_ServerResponse_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -3239,19 +3829,21 @@ public final class Chat {
   static {
     java.lang.String[] descriptorData = {
       "\n\nchat.proto\022\004chat\"$\n\rClientRequest\022\023\n\013c" +
-      "lient_name\030\001 \001(\t\"!\n\016ServerResponse\022\017\n\007me" +
-      "ssage\030\001 \001(\t\">\n\016MessageRequest\022\023\n\013client_" +
-      "name\030\001 \001(\t\022\027\n\017message_content\030\002 \001(\t\"\"\n\017M" +
-      "essageResponse\022\017\n\007message\030\001 \001(\t\"\020\n\016Histo" +
-      "ryRequest\"#\n\017HistoryResponse\022\020\n\010messages" +
-      "\030\001 \003(\t2\363\001\n\013ChatService\0224\n\007Connect\022\023.chat" +
-      ".ClientRequest\032\024.chat.ServerResponse\0227\n\n" +
-      "Disconnect\022\023.chat.ClientRequest\032\024.chat.S" +
-      "erverResponse\022:\n\013SendMessage\022\024.chat.Mess",
-      "ageRequest\032\025.chat.MessageResponse\0229\n\nGet" +
-      "History\022\024.chat.HistoryRequest\032\025.chat.His" +
-      "toryResponseB\024\n\022pdytr.example.grpcb\006prot" +
-      "o3"
+      "lient_name\030\001 \001(\t\"5\n\013PoolRequest\022\023\n\013clien" +
+      "t_name\030\001 \001(\t\022\021\n\tpool_size\030\002 \001(\005\"!\n\016Serve" +
+      "rResponse\022\017\n\007message\030\001 \001(\t\">\n\016MessageReq" +
+      "uest\022\023\n\013client_name\030\001 \001(\t\022\027\n\017message_con" +
+      "tent\030\002 \001(\t\"\"\n\017MessageResponse\022\017\n\007message" +
+      "\030\001 \001(\t\"\020\n\016HistoryRequest\"#\n\017HistoryRespo" +
+      "nse\022\020\n\010messages\030\001 \003(\t2\257\002\n\013ChatService\0224\n" +
+      "\007Connect\022\023.chat.ClientRequest\032\024.chat.Ser" +
+      "verResponse\0227\n\nDisconnect\022\023.chat.ClientR",
+      "equest\032\024.chat.ServerResponse\022:\n\013SendMess" +
+      "age\022\024.chat.MessageRequest\032\025.chat.Message" +
+      "Response\0229\n\nGetHistory\022\024.chat.HistoryReq" +
+      "uest\032\025.chat.HistoryResponse\022:\n\016StreamMes" +
+      "sages\022\021.chat.PoolRequest\032\025.chat.MessageR" +
+      "esponseB\024\n\022pdytr.example.grpcb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -3271,32 +3863,38 @@ public final class Chat {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_chat_ClientRequest_descriptor,
         new java.lang.String[] { "ClientName", });
-    internal_static_chat_ServerResponse_descriptor =
+    internal_static_chat_PoolRequest_descriptor =
       getDescriptor().getMessageTypes().get(1);
+    internal_static_chat_PoolRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_chat_PoolRequest_descriptor,
+        new java.lang.String[] { "ClientName", "PoolSize", });
+    internal_static_chat_ServerResponse_descriptor =
+      getDescriptor().getMessageTypes().get(2);
     internal_static_chat_ServerResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_chat_ServerResponse_descriptor,
         new java.lang.String[] { "Message", });
     internal_static_chat_MessageRequest_descriptor =
-      getDescriptor().getMessageTypes().get(2);
+      getDescriptor().getMessageTypes().get(3);
     internal_static_chat_MessageRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_chat_MessageRequest_descriptor,
         new java.lang.String[] { "ClientName", "MessageContent", });
     internal_static_chat_MessageResponse_descriptor =
-      getDescriptor().getMessageTypes().get(3);
+      getDescriptor().getMessageTypes().get(4);
     internal_static_chat_MessageResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_chat_MessageResponse_descriptor,
         new java.lang.String[] { "Message", });
     internal_static_chat_HistoryRequest_descriptor =
-      getDescriptor().getMessageTypes().get(4);
+      getDescriptor().getMessageTypes().get(5);
     internal_static_chat_HistoryRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_chat_HistoryRequest_descriptor,
         new java.lang.String[] { });
     internal_static_chat_HistoryResponse_descriptor =
-      getDescriptor().getMessageTypes().get(5);
+      getDescriptor().getMessageTypes().get(6);
     internal_static_chat_HistoryResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_chat_HistoryResponse_descriptor,

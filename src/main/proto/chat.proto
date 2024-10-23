@@ -9,10 +9,17 @@ service ChatService {
     rpc Disconnect(ClientRequest) returns (ServerResponse);
     rpc SendMessage(MessageRequest) returns (MessageResponse);
     rpc GetHistory(HistoryRequest) returns (HistoryResponse);
+
+    rpc StreamMessages(PoolRequest) returns (MessageResponse);
 }
 
 message ClientRequest {
     string client_name = 1;
+}
+
+message PoolRequest {
+    string client_name = 1;
+    int32 pool_size = 2;
 }
 
 message ServerResponse {

@@ -22,7 +22,7 @@ public class ChatServer {
     // Lista para almacenar el historial de mensajes
     private static List<String> messageHistory = new ArrayList<>();
     // Hash of the connected clients
-    private static HashMap<String, StreamObserver<ServerResponse>> clients = new HashMap<>();
+    private static HashMap<String, StreamObserver<ServerResponse>> clientsConnected = new HashMap<>();
 
     public static void main(String[] args) throws IOException, InterruptedException {
         Server server = ServerBuilder.forPort(50051) // Puerto del servidor
@@ -40,15 +40,20 @@ public class ChatServer {
         @Override
         public void connect(ClientRequest request, StreamObserver<ServerResponse> responseObserver) {
             String clientName = request.getClientName();
-            String responseMessage = "Cliente " + clientName + " conectado.";
-            System.out.println(responseMessage);
+            String responseMessage;
 
-            if (clients.containsKey(clientName)) {
+            if (clientsConnected.containsKey(clientName)) {
                 responseMessage = "Cliente " + clientName + " ya está conectado utilice otro nombre.";
             } else {
-                clients.put(clientName, responseObserver);
+                responseMessage = "Cliente " + clientName + " conectado.";
+                clientsConnected.put(clientName, responseObserver);
             }
+            System.out.println(responseMessage);
 
+            // System.out.println("Clientes conectados:");
+            // for (String clientNames : clients.keySet()) {
+            //     System.out.println(clientNames);
+            // }
             ServerResponse response = ServerResponse.newBuilder()
                     .setMessage(responseMessage)
                     .build();
@@ -58,10 +63,12 @@ public class ChatServer {
         }
 
         @Override
-        public void disconnect(ClientRequest request, StreamObserver<ServerResponse> responseObserver) {
+        public void disconnect(ClientRequest request, StreamObserver<ServerResponse> responseObserver
+        ) {
             String clientName = request.getClientName();
             String responseMessage = "Cliente " + clientName + " desconectado.";
             System.out.println(responseMessage);
+            clientsConnected.remove(clientName);
 
             ServerResponse response = ServerResponse.newBuilder()
                     .setMessage(responseMessage)
@@ -72,7 +79,8 @@ public class ChatServer {
         }
 
         @Override
-        public void sendMessage(MessageRequest request, StreamObserver<MessageResponse> responseObserver) {
+        public void sendMessage(MessageRequest request, StreamObserver<MessageResponse> responseObserver
+        ) {
             String clientName = request.getClientName();
             String messageContent = request.getMessageContent();
 
@@ -84,16 +92,20 @@ public class ChatServer {
             // Guardar el mensaje en el historial
             messageHistory.add(messageWithTimestamp);
 
+            System.out.println(messageWithTimestamp);
+
             // Devolver la respuesta al cliente
             MessageResponse response = MessageResponse.newBuilder()
                     .setMessage("Mensaje recibido.")
                     .build();
             responseObserver.onNext(response);
             responseObserver.onCompleted();
+
         }
 
         @Override
-        public void getHistory(HistoryRequest request, StreamObserver<HistoryResponse> responseObserver) {
+        public void getHistory(HistoryRequest request, StreamObserver<HistoryResponse> responseObserver
+        ) {
             HistoryResponse.Builder responseBuilder = HistoryResponse.newBuilder();
             for (String message : messageHistory) {
                 responseBuilder.addMessages(message);
@@ -102,5 +114,25 @@ public class ChatServer {
             responseObserver.onNext(responseBuilder.build());
             responseObserver.onCompleted();
         }
+
+        @Override
+        public void streamMessages(Chat.PoolRequest poolRequest, StreamObserver<MessageResponse> responseObserver) {
+            // Stream the messages to the client
+            String client = poolRequest.getClientName();
+            String latestMessages = "";
+            int poolSize = poolRequest.getPoolSize();
+            // Get the last poolSize messages
+            for (int i = poolSize; i < messageHistory.size(); i++) {
+                if (i >= 0) {
+                    latestMessages += messageHistory.get(i) + "\n";
+                }
+            }
+            MessageResponse response = MessageResponse.newBuilder()
+                    .setMessage(latestMessages)
+                    .build();
+            responseObserver.onNext(response);
+            responseObserver.onCompleted();
+        }
+
     }
 }

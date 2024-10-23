@@ -79,6 +79,19 @@ public final class ChatServiceGrpc {
               pdytr.example.grpc.Chat.HistoryResponse.getDefaultInstance()))
           .setSchemaDescriptor(new ChatServiceMethodDescriptorSupplier("GetHistory"))
           .build();
+  @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
+  public static final io.grpc.MethodDescriptor<pdytr.example.grpc.Chat.PoolRequest,
+      pdytr.example.grpc.Chat.MessageResponse> METHOD_STREAM_MESSAGES =
+      io.grpc.MethodDescriptor.<pdytr.example.grpc.Chat.PoolRequest, pdytr.example.grpc.Chat.MessageResponse>newBuilder()
+          .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+          .setFullMethodName(generateFullMethodName(
+              "chat.ChatService", "StreamMessages"))
+          .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+              pdytr.example.grpc.Chat.PoolRequest.getDefaultInstance()))
+          .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+              pdytr.example.grpc.Chat.MessageResponse.getDefaultInstance()))
+          .setSchemaDescriptor(new ChatServiceMethodDescriptorSupplier("StreamMessages"))
+          .build();
 
   /**
    * Creates a new async stub that supports all call types for the service
@@ -135,6 +148,13 @@ public final class ChatServiceGrpc {
       asyncUnimplementedUnaryCall(METHOD_GET_HISTORY, responseObserver);
     }
 
+    /**
+     */
+    public void streamMessages(pdytr.example.grpc.Chat.PoolRequest request,
+        io.grpc.stub.StreamObserver<pdytr.example.grpc.Chat.MessageResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(METHOD_STREAM_MESSAGES, responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -165,6 +185,13 @@ public final class ChatServiceGrpc {
                 pdytr.example.grpc.Chat.HistoryRequest,
                 pdytr.example.grpc.Chat.HistoryResponse>(
                   this, METHODID_GET_HISTORY)))
+          .addMethod(
+            METHOD_STREAM_MESSAGES,
+            asyncUnaryCall(
+              new MethodHandlers<
+                pdytr.example.grpc.Chat.PoolRequest,
+                pdytr.example.grpc.Chat.MessageResponse>(
+                  this, METHODID_STREAM_MESSAGES)))
           .build();
     }
   }
@@ -218,6 +245,14 @@ public final class ChatServiceGrpc {
       asyncUnaryCall(
           getChannel().newCall(METHOD_GET_HISTORY, getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void streamMessages(pdytr.example.grpc.Chat.PoolRequest request,
+        io.grpc.stub.StreamObserver<pdytr.example.grpc.Chat.MessageResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(METHOD_STREAM_MESSAGES, getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -264,6 +299,13 @@ public final class ChatServiceGrpc {
     public pdytr.example.grpc.Chat.HistoryResponse getHistory(pdytr.example.grpc.Chat.HistoryRequest request) {
       return blockingUnaryCall(
           getChannel(), METHOD_GET_HISTORY, getCallOptions(), request);
+    }
+
+    /**
+     */
+    public pdytr.example.grpc.Chat.MessageResponse streamMessages(pdytr.example.grpc.Chat.PoolRequest request) {
+      return blockingUnaryCall(
+          getChannel(), METHOD_STREAM_MESSAGES, getCallOptions(), request);
     }
   }
 
@@ -316,12 +358,21 @@ public final class ChatServiceGrpc {
       return futureUnaryCall(
           getChannel().newCall(METHOD_GET_HISTORY, getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<pdytr.example.grpc.Chat.MessageResponse> streamMessages(
+        pdytr.example.grpc.Chat.PoolRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(METHOD_STREAM_MESSAGES, getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_CONNECT = 0;
   private static final int METHODID_DISCONNECT = 1;
   private static final int METHODID_SEND_MESSAGE = 2;
   private static final int METHODID_GET_HISTORY = 3;
+  private static final int METHODID_STREAM_MESSAGES = 4;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -355,6 +406,10 @@ public final class ChatServiceGrpc {
         case METHODID_GET_HISTORY:
           serviceImpl.getHistory((pdytr.example.grpc.Chat.HistoryRequest) request,
               (io.grpc.stub.StreamObserver<pdytr.example.grpc.Chat.HistoryResponse>) responseObserver);
+          break;
+        case METHODID_STREAM_MESSAGES:
+          serviceImpl.streamMessages((pdytr.example.grpc.Chat.PoolRequest) request,
+              (io.grpc.stub.StreamObserver<pdytr.example.grpc.Chat.MessageResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -421,6 +476,7 @@ public final class ChatServiceGrpc {
               .addMethod(METHOD_DISCONNECT)
               .addMethod(METHOD_SEND_MESSAGE)
               .addMethod(METHOD_GET_HISTORY)
+              .addMethod(METHOD_STREAM_MESSAGES)
               .build();
         }
       }
