@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="pdytr.example.grpc.AppTest" time="0.102" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="pdytr.example.grpc.AppTest" time="0.072" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="22"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -15,7 +15,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="AR"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-22\bin"/>
-    <property name="sun.java.command" value="C:\Users\Kira\AppData\Local\Temp\surefire566370438651047141\surefirebooter-20241023100834096_3.jar C:\Users\Kira\AppData\Local\Temp\surefire566370438651047141 2024-10-23T10-08-33_773-jvmRun1 surefire-20241023100834096_1tmp surefire_0-20241023100834096_2tmp"/>
+    <property name="sun.java.command" value="C:\Users\Kira\AppData\Local\Temp\surefire17484935475447039241\surefirebooter-20241023142300464_3.jar C:\Users\Kira\AppData\Local\Temp\surefire17484935475447039241 2024-10-23T14-22-59_353-jvmRun1 surefire-20241023142300464_1tmp surefire_0-20241023142300464_2tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="C:\Users\Kira\Desktop\Facultad\8vo Semestre\Sistemas Distribuidos\Tp3\10-gRPC\pdytr-grpc-demo\grpc-hello-server\target\test-classes;C:\Users\Kira\Desktop\Facultad\8vo Semestre\Sistemas Distribuidos\Tp3\10-gRPC\pdytr-grpc-demo\grpc-hello-server\target\classes;C:\Users\Kira\.m2\repository\junit\junit\3.8.1\junit-3.8.1.jar;C:\Users\Kira\.m2\repository\io\grpc\grpc-netty\1.7.0\grpc-netty-1.7.0.jar;C:\Users\Kira\.m2\repository\io\grpc\grpc-core\1.7.0\grpc-core-1.7.0.jar;C:\Users\Kira\.m2\repository\io\grpc\grpc-context\1.7.0\grpc-context-1.7.0.jar;C:\Users\Kira\.m2\repository\com\google\errorprone\error_prone_annotations\2.0.19\error_prone_annotations-2.0.19.jar;C:\Users\Kira\.m2\repository\com\google\code\findbugs\jsr305\3.0.0\jsr305-3.0.0.jar;C:\Users\Kira\.m2\repository\com\google\instrumentation\instrumentation-api\0.4.3\instrumentation-api-0.4.3.jar;C:\Users\Kira\.m2\repository\io\opencensus\opencensus-api\0.6.0\opencensus-api-0.6.0.jar;C:\Users\Kira\.m2\repository\io\netty\netty-codec-http2\4.1.16.Final\netty-codec-http2-4.1.16.Final.jar;C:\Users\Kira\.m2\repository\io\netty\netty-codec-http\4.1.16.Final\netty-codec-http-4.1.16.Final.jar;C:\Users\Kira\.m2\repository\io\netty\netty-codec\4.1.16.Final\netty-codec-4.1.16.Final.jar;C:\Users\Kira\.m2\repository\io\netty\netty-handler\4.1.16.Final\netty-handler-4.1.16.Final.jar;C:\Users\Kira\.m2\repository\io\netty\netty-buffer\4.1.16.Final\netty-buffer-4.1.16.Final.jar;C:\Users\Kira\.m2\repository\io\netty\netty-common\4.1.16.Final\netty-common-4.1.16.Final.jar;C:\Users\Kira\.m2\repository\io\netty\netty-handler-proxy\4.1.16.Final\netty-handler-proxy-4.1.16.Final.jar;C:\Users\Kira\.m2\repository\io\netty\netty-transport\4.1.16.Final\netty-transport-4.1.16.Final.jar;C:\Users\Kira\.m2\repository\io\netty\netty-resolver\4.1.16.Final\netty-resolver-4.1.16.Final.jar;C:\Users\Kira\.m2\repository\io\netty\netty-codec-socks\4.1.16.Final\netty-codec-socks-4.1.16.Final.jar;C:\Users\Kira\.m2\repository\io\grpc\grpc-protobuf\1.7.0\grpc-protobuf-1.7.0.jar;C:\Users\Kira\.m2\repository\com\google\protobuf\protobuf-java\3.4.0\protobuf-java-3.4.0.jar;C:\Users\Kira\.m2\repository\com\google\guava\guava\19.0\guava-19.0.jar;C:\Users\Kira\.m2\repository\com\google\protobuf\protobuf-java-util\3.4.0\protobuf-java-util-3.4.0.jar;C:\Users\Kira\.m2\repository\com\google\code\gson\gson\2.7\gson-2.7.jar;C:\Users\Kira\.m2\repository\com\google\api\grpc\proto-google-common-protos\0.1.9\proto-google-common-protos-0.1.9.jar;C:\Users\Kira\.m2\repository\io\grpc\grpc-protobuf-lite\1.7.0\grpc-protobuf-lite-1.7.0.jar;C:\Users\Kira\.m2\repository\io\grpc\grpc-stub\1.7.0\grpc-stub-1.7.0.jar;C:\Users\Kira\.m2\repository\javax\annotation\javax.annotation-api\1.2\javax.annotation-api-1.2.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -30,7 +30,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\Kira\AppData\Local\Temp\surefire566370438651047141\surefirebooter-20241023100834096_3.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\Kira\AppData\Local\Temp\surefire17484935475447039241\surefirebooter-20241023142300464_3.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="22.0.2+9-70"/>
@@ -58,5 +58,5 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="66.0"/>
   </properties>
-  <testcase name="testApp" classname="pdytr.example.grpc.AppTest" time="0.026"/>
+  <testcase name="testApp" classname="pdytr.example.grpc.AppTest" time="0.013"/>
 </testsuite>
