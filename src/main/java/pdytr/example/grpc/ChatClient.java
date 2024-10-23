@@ -1,9 +1,13 @@
 package pdytr.example.grpc;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+
+import com.google.protobuf.ProtocolStringList;
 
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
@@ -105,7 +109,7 @@ public class ChatClient {
                     printLatestMessages(response.getMessage());
                 }
             } catch (StatusRuntimeException e) {
-                System.err.println("Error al enviar el mensaje: " + e.getStatus());
+                System.err.println("Cerrando hilo de escucha");
                 break;
             }
 
@@ -151,10 +155,22 @@ public class ChatClient {
             System.out.println("Historial de mensajes:");
             for (String message : response.getMessagesList()) {
                 System.out.println(message); // Imprimir cada mensaje del historial
-                //TODO PASS TO PDF OR TXT
             }
+            makeTxt(response.getMessagesList());
+
         } catch (StatusRuntimeException e) {
             System.err.println("Error al solicitar el historial: " + e.getStatus());
+        }
+    }
+
+    private static void makeTxt(ProtocolStringList messages) {
+        String filename = clientName + "_historial.txt";
+        try (PrintWriter out = new PrintWriter(filename)) {
+            for (String message : messages) {
+                out.println(message);
+            }
+        } catch (FileNotFoundException e) {
+            System.err.println("Error: No se pudo crear el archivo " + filename);
         }
     }
 }
