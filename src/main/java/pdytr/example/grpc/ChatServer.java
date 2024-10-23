@@ -118,7 +118,8 @@ public class ChatServer {
         @Override
         public void streamMessages(Chat.PoolRequest poolRequest, StreamObserver<MessageResponse> responseObserver) {
             // Stream the messages to the client
-            String client = poolRequest.getClientName();
+            //TODO return the messages when the client was connected
+            String client = poolRequest.getClientName(); 
             String latestMessages = "";
             int poolSize = poolRequest.getPoolSize();
             // Get the last poolSize messages

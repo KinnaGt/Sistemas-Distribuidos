@@ -18,6 +18,7 @@ import pdytr.example.grpc.Chat.ServerResponse;
 
 public class ChatClient {
 
+    private static volatile boolean running = true;
     private static boolean voluntaryDisconnect = false;
     private static String clientName;
     private static List<String> messages;
@@ -33,13 +34,19 @@ public class ChatClient {
 
         System.out.print("Ingresa tu nombre: ");
         clientName = scanner.nextLine();
-        connectToServer(stub, clientName);
 
-        // Hook para capturar la desconexión involuntaria
+        Thread messageThread = new Thread(() -> checkIncomingMessages(stub));
+        connectToServer(stub, clientName);
+        messageThread.start(); // hilo que escucha los mensajes de otros usuarios
+
+        // Hook para capturar la desconexión involuntaria y limpiar recursos
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             if (!voluntaryDisconnect) { // Solo desconecta si fue involuntario
+                running = false; // Detener el ciclo while
+                messageThread.interrupt(); // Interrumpir el hilo si está durmiendo
                 disconnectFromServer(stub, clientName); // Desconexión limpia al cerrar
                 channel.shutdown();
+                System.out.println("Aplicación terminada, limpiando recursos...");
             }
         }));
 
@@ -74,8 +81,6 @@ public class ChatClient {
             Scanner scanner = new Scanner(System.in);
             clientName = scanner.nextLine();
             connectToServer(stub, clientName); // Reintentar la conexión
-        } else {
-            new Thread(() -> checkIncomingMessages(stub)).start();
         }
     }
 
@@ -85,9 +90,8 @@ public class ChatClient {
 
     private static void checkIncomingMessages(ChatServiceGrpc.ChatServiceBlockingStub stub) {
         System.out.println("Cree un hilo para escuchar mensajes");
-        // Hear the server messages
-        while (true) {
-
+        //Hear the server messages
+        while (running) {
             PoolRequest request = PoolRequest.newBuilder()
                     .setClientName(clientName)
                     .setPoolSize(messages.size())
@@ -102,6 +106,7 @@ public class ChatClient {
                 }
             } catch (StatusRuntimeException e) {
                 System.err.println("Error al enviar el mensaje: " + e.getStatus());
+                break;
             }
 
             //Sleep for 2 second
