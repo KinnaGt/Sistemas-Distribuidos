@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
@@ -21,8 +22,8 @@ public class ChatServer {
 
     // Lista para almacenar el historial de mensajes
     private static List<String> messageHistory = new ArrayList<>();
-    // Hash of the connected clients
-    private static HashMap<String, StreamObserver<ServerResponse>> clientsConnected = new HashMap<>();
+    // List with the clients connected and the offset from his connection
+    private static Map<String, Integer> clientsConnected = new HashMap<>();
 
     public static void main(String[] args) throws IOException, InterruptedException {
         Server server = ServerBuilder.forPort(50051) // Puerto del servidor
@@ -46,14 +47,10 @@ public class ChatServer {
                 responseMessage = "Cliente " + clientName + " ya está conectado utilice otro nombre.";
             } else {
                 responseMessage = "Cliente " + clientName + " conectado.";
-                clientsConnected.put(clientName, responseObserver);
+                clientsConnected.put(clientName, messageHistory.size());
             }
             System.out.println(responseMessage);
 
-            // System.out.println("Clientes conectados:");
-            // for (String clientNames : clients.keySet()) {
-            //     System.out.println(clientNames);
-            // }
             ServerResponse response = ServerResponse.newBuilder()
                     .setMessage(responseMessage)
                     .build();
@@ -118,12 +115,12 @@ public class ChatServer {
         @Override
         public void streamMessages(Chat.PoolRequest poolRequest, StreamObserver<MessageResponse> responseObserver) {
             // Stream the messages to the client
-            //TODO return the messages when the client was connected
-            String client = poolRequest.getClientName(); 
+            String client = poolRequest.getClientName();
             String latestMessages = "";
+            int offset = clientsConnected.get(client);
             int poolSize = poolRequest.getPoolSize();
             // Get the last poolSize messages
-            for (int i = poolSize; i < messageHistory.size(); i++) {
+            for (int i = offset + poolSize; i < messageHistory.size(); i++) {
                 if (i >= 0) {
                     latestMessages += messageHistory.get(i) + "\n";
                 }

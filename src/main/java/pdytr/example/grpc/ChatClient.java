@@ -45,9 +45,9 @@ public class ChatClient {
 
         // Hook para capturar la desconexión involuntaria y limpiar recursos
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            running = false; // Detener el ciclo while
+            messageThread.interrupt(); // Interrumpir el hilo si está durmiendo
             if (!voluntaryDisconnect) { // Solo desconecta si fue involuntario
-                running = false; // Detener el ciclo while
-                messageThread.interrupt(); // Interrumpir el hilo si está durmiendo
                 disconnectFromServer(stub, clientName); // Desconexión limpia al cerrar
                 channel.shutdown();
                 System.out.println("Aplicación terminada, limpiando recursos...");
