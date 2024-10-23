@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+option java_package = "pdytr.example.grpc";
+
+package chat;
+
+service ChatService {
+    rpc Connect(ClientRequest) returns (ServerResponse);
+    rpc Disconnect(ClientRequest) returns (ServerResponse);
+    rpc SendMessage(MessageRequest) returns (MessageResponse);
+    rpc GetHistory(HistoryRequest) returns (HistoryResponse);
+}
+
+message ClientRequest {
+    string client_name = 1;
+}
+
+message ServerResponse {
+    string message = 1;
+}
+
+message MessageRequest {
+    string client_name = 1;
+    string message_content = 2;
+}
+
+message MessageResponse {
+    string message = 1;
+}
+
+message HistoryRequest {}
+
+message HistoryResponse {
+    repeated string messages = 1;
+}
