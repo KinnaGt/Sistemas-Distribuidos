@@ -1,7 +1,10 @@
 package pdytr.example.grpc;
 
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.PrintWriter;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -25,52 +28,68 @@ public class ChatClient {
     private static volatile boolean running = true;
     private static boolean voluntaryDisconnect = false;
     private static String clientName;
+    private static int msgSize;
     private static List<String> messages;
 
     public static void main(String[] args) {
+        if (args.length < 2) {
+            System.out.println("Falta el nombre del cliente");
+            return;
+        }
         messages = new ArrayList<>();
         ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 50051)
                 .usePlaintext(true)
                 .build();
 
         ChatServiceGrpc.ChatServiceBlockingStub stub = ChatServiceGrpc.newBlockingStub(channel);
-        Scanner scanner = new Scanner(System.in);
+        clientName = args[0];
+        msgSize = Integer.parseInt(args[1]);
+        // Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Ingresa tu nombre: ");
-        clientName = scanner.nextLine();
-
+        // // System.out.print("Ingresa tu nombre: ");
+        // clientName = scanner.nextLine();
         Thread messageThread = new Thread(() -> checkIncomingMessages(stub));
         connectToServer(stub, clientName);
         messageThread.start(); // hilo que escucha los mensajes de otros usuarios
 
         // Hook para capturar la desconexión involuntaria y limpiar recursos
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            running = false; // Detener el ciclo while
-            messageThread.interrupt(); // Interrumpir el hilo si está durmiendo
             if (!voluntaryDisconnect) { // Solo desconecta si fue involuntario
+                running = false; // Detener el ciclo while
+                messageThread.interrupt(); // Interrumpir el hilo si está durmiendo
                 disconnectFromServer(stub, clientName); // Desconexión limpia al cerrar
                 channel.shutdown();
-                System.out.println("Aplicación terminada, limpiando recursos...");
+                // System.out.println("Aplicación terminada, limpiando recursos...");
             }
         }));
-
         // Interacción del cliente
-        System.out.println("Ingresa un mensaje (o 'exit' para salir o /historial para el historial): ");
-        while (true) {
-            String messageContent = scanner.nextLine();
-            if (messageContent.equalsIgnoreCase("exit")) {
-                voluntaryDisconnect = true;
-                disconnectFromServer(stub, clientName);
-                break;
-            } else if (messageContent.equalsIgnoreCase("/historial")) {
-                requestHistory(stub);
-            } else {
+        // System.out.println("Ingresa un mensaje (o 'exit' para salir o /historial para el historial): ");
+        for (int i = 0; i < 100; i++) {
+            {
+                String messageContent = new String(new char[msgSize]).replace("\0", "a");
                 sendMessage(stub, clientName, messageContent);
+
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    break;
+                }
             }
         }
-
+        //esperar 3 segundos para asegurar que llega escribir el csv
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        System.out.print("Cerrando");
+        
+        voluntaryDisconnect = true;
+        running = false; // Detener el ciclo while
+        messageThread.interrupt(); // Interrumpir el hilo si está durmiendo
+        disconnectFromServer(stub, clientName); // Desconexión limpia al cerrar
         channel.shutdown();
-        scanner.close();
     }
 
     private static void connectToServer(ChatServiceGrpc.ChatServiceBlockingStub stub, String clientName) {
@@ -79,9 +98,9 @@ public class ChatClient {
                 .build();
 
         ServerResponse response = stub.connect(request);
-        System.out.println("Respuesta del servidor: " + response.getMessage());
+        // System.out.println("Respuesta del servidor: " + response.getMessage());
         if (response.getMessage().contains("ya está conectado")) {
-            System.out.print("Ingresa tu nombre: ");
+            // System.out.print("Ingresa tu nombre: ");
             Scanner scanner = new Scanner(System.in);
             clientName = scanner.nextLine();
             connectToServer(stub, clientName); // Reintentar la conexión
@@ -89,11 +108,11 @@ public class ChatClient {
     }
 
     public static void printLatestMessages(String messages) {
-        System.out.println(messages);
+        // System.out.println(messages);
     }
 
     private static void checkIncomingMessages(ChatServiceGrpc.ChatServiceBlockingStub stub) {
-        System.out.println("Cree un hilo para escuchar mensajes");
+        // System.out.println("Cree un hilo para escuchar mensajes");
         //Hear the server messages
         while (running) {
             PoolRequest request = PoolRequest.newBuilder()
@@ -113,11 +132,10 @@ public class ChatClient {
                 break;
             }
 
-            //Sleep for 2 second
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                Thread.currentThread().interrupt();
                 break;
             }
         }
@@ -130,7 +148,7 @@ public class ChatClient {
                 .build();
 
         ServerResponse response = stub.disconnect(request);
-        System.out.println("Respuesta del servidor: " + response.getMessage());
+        // System.out.println("Respuesta del servidor: " + response.getMessage());
     }
 
     private static void sendMessage(ChatServiceGrpc.ChatServiceBlockingStub stub, String clientName, String messageContent) {
@@ -140,10 +158,28 @@ public class ChatClient {
                 .build();
 
         try {
+            Instant start = Instant.now();
             MessageResponse response = stub.sendMessage(request);
-            System.out.println("Respuesta del servidor: " + response.getMessage());
+            Instant end = Instant.now();
+            Duration duration = Duration.between(start, end);
+
+            // System.out.println(duration.toMillis() + "ms");
+            writeCsv(duration);
+            // System.out.println("Respuesta del servidor: " + response.getMessage());
         } catch (StatusRuntimeException e) {
             System.err.println("Error al enviar el mensaje: " + e.getStatus());
+        }
+    }
+
+    private static void writeCsv(Duration duration) {
+        // Añadir linea al csv
+        String filename = clientName + "_" + "size" + msgSize + "_tiempos.csv";
+
+        // Abrir el archivo en modo de append (añadir al final)
+        try (PrintWriter out = new PrintWriter(new FileOutputStream(filename, true))) {
+            out.println(duration.toMillis() + "ms");
+        } catch (FileNotFoundException e) {
+            System.err.println("Error: No se pudo crear el archivo " + filename);
         }
     }
 
@@ -152,9 +188,9 @@ public class ChatClient {
 
         try {
             HistoryResponse response = stub.getHistory(request); // Llamar al método getHistory
-            System.out.println("Historial de mensajes:");
+            // System.out.println("Historial de mensajes:");
             for (String message : response.getMessagesList()) {
-                System.out.println(message); // Imprimir cada mensaje del historial
+                // System.out.println(message); // Imprimir cada mensaje del historial
             }
             makeTxt(response.getMessagesList());
 

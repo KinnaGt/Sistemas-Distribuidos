@@ -65,7 +65,8 @@ public class ChatServer {
             String clientName = request.getClientName();
             String responseMessage = "Cliente " + clientName + " desconectado.";
             System.out.println(responseMessage);
-            clientsConnected.remove(clientName);
+            if (clientsConnected.containsKey(clientName))
+                clientsConnected.remove(clientName);
 
             ServerResponse response = ServerResponse.newBuilder()
                     .setMessage(responseMessage)
@@ -89,8 +90,7 @@ public class ChatServer {
             // Guardar el mensaje en el historial
             messageHistory.add(messageWithTimestamp);
 
-            System.out.println(messageWithTimestamp);
-
+            // System.out.println(messageWithTimestamp);
             // Devolver la respuesta al cliente
             MessageResponse response = MessageResponse.newBuilder()
                     .setMessage("Mensaje recibido.")
@@ -117,7 +117,8 @@ public class ChatServer {
             // Stream the messages to the client
             String client = poolRequest.getClientName();
             String latestMessages = "";
-            int offset = clientsConnected.get(client);
+            Integer offset = clientsConnected.get(client);
+
             int poolSize = poolRequest.getPoolSize();
             // Get the last poolSize messages
             for (int i = offset + poolSize; i < messageHistory.size(); i++) {
